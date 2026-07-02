@@ -1,0 +1,5 @@
+# Enforce LF everywhere — files run inside Linux containers.
+* text=auto eol=lf
+*.png binary
+*.jpg binary
+*.parquet binary
