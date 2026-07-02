@@ -6,13 +6,14 @@ champion/challenger), serves predictions via a REST API, and monitors drift in a
 closed retraining loop.
 
 Full design: [AQI_MLOPS_PROJECT_DOCUMENTATION.md](AQI_MLOPS_PROJECT_DOCUMENTATION.md)
+New to the stack? Start here: [docs/01_week1_foundation.md](docs/01_week1_foundation.md)
 
 ---
 
 ## Status
 
-🚧 **Week 1 — local foundation.** Building the Docker Compose stack (Airflow +
-Postgres + Redis + MLflow) and the ingest DAG for Delhi.
+🚧 **Week 1 — local foundation.** Building the Docker Compose stack (Airflow
+`LocalExecutor` + Postgres + MLflow) and the ingest DAG for Delhi.
 
 ## Prerequisites
 
@@ -22,12 +23,21 @@ Postgres + Redis + MLflow) and the ingest DAG for Delhi.
 
 ## Quick start (local)
 
+Run from the **repo root**:
+
 ```bash
-cp .env.example .env          # then fill in OPENAQ_API_KEY
-docker compose -f infra/docker-compose.yml up -d
+cp .env.example .env          # then fill in OPENAQ_API_KEY (already set in local .env)
+docker compose --env-file .env -f infra/docker-compose.yml up -d --build
+# First run builds the Airflow + MLflow images (a few minutes).
 # Airflow UI:  http://localhost:8080   (airflow / airflow)
 # MLflow UI:   http://localhost:5000
 ```
+
+Stack (LocalExecutor, 4 services): `postgres`, `mlflow`, `airflow-webserver`,
+`airflow-scheduler` (plus a one-shot `airflow-init`).
+
+Tear down (keep data): `docker compose -f infra/docker-compose.yml down`
+Tear down (wipe volumes): `docker compose -f infra/docker-compose.yml down -v`
 
 ## Repository layout
 
