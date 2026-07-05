@@ -16,6 +16,7 @@ venv/
 # Data & artifacts (local GCS stand-in, MLflow, models)
 data/
 mlruns/
+experiments/
 mlflow.db
 *.parquet
 *.ckpt
